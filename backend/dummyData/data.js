@@ -1,4 +1,4 @@
-const user=[
+export const user=[
     {
         _id:"1",
         username:"user-name1",
@@ -42,7 +42,7 @@ const user=[
 ];
 
 
-const transaction = [
+export const transaction = [
     {
         _id:"1",
         userId:"1",
