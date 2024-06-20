@@ -4,7 +4,7 @@ const TransactionSchema = new mongoose.Schema({
     userID:{
         type:String,
         required:true
-    },
+},
     description:{
         type:String,
         required:true
