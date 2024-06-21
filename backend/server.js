@@ -20,6 +20,8 @@ dotenv.config()
 configurePassport()
 const PORT = process.env.PORT
 
+const startServer = async()=>{
+
 const app = express()
 
 app.use(morgan('dev'))
@@ -77,5 +79,7 @@ await new Promise((resolve)=> {
 });
 await connectDB();
 
+}
+startServer.catch((err)=> console.log(`Error in starting the server`.bgRed.yellow))
 
 

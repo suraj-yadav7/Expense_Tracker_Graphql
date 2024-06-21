@@ -27,6 +27,7 @@ const userResolver={
             }
         }
     },
+    // Mutation: CRD
     Mutation:{
         // Signup new user
         signUp: async(_,{input},context)=>{
@@ -93,7 +94,6 @@ const userResolver={
             }
         }
     }
-
 }
 
 export default userResolver;

@@ -6,6 +6,7 @@ import User from "../models/user.model.js"
 export const configurePassport = async()=>{
     passport.serializeUser((user, done)=>{
         console.log("serializing user")
+        // done is callback functin, first param is err and second is userId
         done(null, user.id)
     });
 
