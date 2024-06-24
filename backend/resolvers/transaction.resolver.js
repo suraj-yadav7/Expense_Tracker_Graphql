@@ -2,7 +2,7 @@ import Transaction from "../models/transaction.model.js";
 
 const transactionResolver = {
     Query:{
-        transaction:async(_,_,context)=>{
+        transactions:async(_,__,context)=>{
             try{
                 if(!context.getUser()) throw new Error("User is not authorized")
                 let userid= await context.getUser()._id
@@ -13,7 +13,7 @@ const transactionResolver = {
                 throw new Error(err.message || 'Internal server error')
             }
         },
-        singleTrsansaction: async(_,{transactionId})=>{
+        singleTransaction: async(_,{transactionId})=>{
             try{
                 let singleTrans = await Transaction.findById(transactionId)
                 if(!singleTrans){

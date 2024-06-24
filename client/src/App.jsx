@@ -12,7 +12,6 @@ function App() {
   return (
     <>
     <Router>
-      <h1 className='bg-yellow-400'>Expense tracker with GraphQL</h1>
       <Routes>
         <Route exact path="/" element={<Home/>} />
         <Route exact path="/signup" element={<Signup/>} />

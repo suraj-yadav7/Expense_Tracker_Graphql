@@ -80,6 +80,6 @@ await new Promise((resolve)=> {
 await connectDB();
 
 }
-startServer.catch((err)=> console.log(`Error in starting the server`.bgRed.yellow))
+startServer().catch((err)=> console.log(`Error in starting the server: ${err}`.bgRed.yellow))
 
 
