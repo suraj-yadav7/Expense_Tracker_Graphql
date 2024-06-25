@@ -6,6 +6,7 @@ import Home from './components/pages/Home'
 import NotFound from './components/pages/NotFound'
 import Login from './components/pages/Login'
 import Transaction from './components/pages/Transaction'
+import TransactionFormSkeleton from './components/TransactionFormSkelton'
 
 function App() {
 

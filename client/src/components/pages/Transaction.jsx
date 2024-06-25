@@ -18,7 +18,7 @@ const Transaction = () => {
 
   const handleSubmit=(e)=>{
     e.preventDefault()
-  }
+  };
   console.log("trans: ", formData)
   return (
     <>
@@ -180,6 +180,6 @@ const Transaction = () => {
 		</div>
         </>
   )
-}
+};
 
 export default Transaction;
