@@ -26,7 +26,7 @@ const app = express()
 
 app.use(morgan('dev'))
 const corsOption={
-    origin:'http://locahost:5173',
+    origin:process.env.CLIENT_URL,
     method:["GET","POST", "PUT","DELETE"],
     credentials:true,
     optionSuccessStatus:200
@@ -36,8 +36,8 @@ const httpServer = http.createServer(app)
 const mongoDbStore = connectMongo(session);
 const store = new mongoDbStore({
     uri:process.env.MONGO_URI,
-    dbName:"ExpenseTrackerQl",
-    collection:"sesssion"
+    databaseName:process.env.DATABASE_NAME,
+    collection:"sessions"
 })
 store.on("error",(err)=> console.log("error at store: ", err))
 
@@ -65,13 +65,15 @@ const apolloServer = new ApolloServer({
 })
 await apolloServer.start();
 
-app.use('/', 
+app.use('/graphql', 
     cors(corsOption), 
     express.json(),
     expressMiddleware(apolloServer, {
-        context:async({req})=> buildContext({req,res})
+        context:async({req,res})=> {
+            return buildContext({req,res})
+        }
     })
-    );
+);
 
 await new Promise((resolve)=> {
     httpServer.listen({port:PORT}, resolve)

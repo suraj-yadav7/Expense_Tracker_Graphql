@@ -17,6 +17,7 @@ const userResolver={
 
         // Authentication of user
         authUser: async (_,__,context)=>{
+            console.log("context: ", context)
             try{
                 const user = await context.getUser()
                 return user
@@ -31,12 +32,14 @@ const userResolver={
     Mutation:{
         // Signup new user
         signUp: async(_,{input},context)=>{
+            console.log("server: ", input)
             try{
                 const {username, name, password,gender}=input
                 if(!username || !name || !password || !gender){
                     throw new Error("All input fields are required")
                 }
                 let userExist=await User.findOne({username})
+                console.log("user exist: ", userExist)
                 if(userExist){
                     throw new Error ("User already exist")
                 }

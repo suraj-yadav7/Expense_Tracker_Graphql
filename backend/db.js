@@ -7,7 +7,7 @@ const uri=process.env.MONGO_URI
 const connectDB = async()=>{
     try{
         const connectionInstance = await mongoose.connect(uri,{
-            dbName:'ExpenseTrackerQL'
+            dbName:process.env.DATABASE_NAME
         })
         console.log(`mongodb connect at : ${connectionInstance.connection.host}`.bgGreen.white)
     }

@@ -1,29 +1,49 @@
 import React, { useState } from 'react'
 import InputField from '../InputFields'
-import {Link} from 'react-router-dom'
-
+import {Link, useNavigate} from 'react-router-dom'
+import { SIGN_UP } from '../../graphql/mutations/user.mutation'
+import { useMutation } from '@apollo/client'
+import toast from 'react-hot-toast'
 
 const Signup = () => {
 const [signupData, setSignupData] = useState({
-  fullname:'',
+  name:'',
   username:'',
   password:'',
   gender:''
 })
 
+const [SignUp,{loading,error}] = useMutation(SIGN_UP)
+const navigate = useNavigate()
   const handleChange =(e)=>{
     const {name, value}=e.target
     setSignupData({...signupData, [name]:value})
 
   }
-
-  const handleSubmit =(e)=>{
+  console.log("sigup loading: ", loading)
+  const handleSubmit =async(e)=>{
     e.preventDefault()
-    setSignupData({username:'', fullname:'', password:'', gender:''})
+    try{
+      let response =await SignUp({
+        variables:{
+          inputData:signupData
+        }
+      }) 
+      if(response){
+        toast.success("User Created")
+        setSignupData({username:'', name:'', password:'', gender:''})
+      }
+      setTimeout(()=>{
+        navigate("/login")
+      },2000)
+    }
+    catch(error){
+      console.log("Client side error at auth: ",error)
+      toast.error(error.message)
+    }
 
   }
 
-console.log("signup: ", signupData)
 
   return (
     <>
@@ -31,7 +51,7 @@ console.log("signup: ", signupData)
         <h3 className="text-xl font-bold text-center p-1 ">User Signup</h3>
         <p className="text-sm mb-2 text-center">Welcome! Create new account</p>
         <form onSubmit={handleSubmit}>
-            <InputField name="fullname" className='my-4' label="Full Name" value={signupData.fullname}  onChange={handleChange} placeholder="Enter your full name"/>
+            <InputField name="name" className='my-4' label="Full Name" value={signupData.name}  onChange={handleChange} placeholder="Enter your full name"/>
             <InputField name="username" className='my-4' label="Username" value={signupData.username}  onChange={handleChange} placeholder="Enter your username"/>
             <InputField type="password" name="password" className="my-2" label="Password" value={signupData.password} onChange={handleChange} placeholder="Enter your password"/>
             <div className='my-3'>
