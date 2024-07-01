@@ -9,6 +9,13 @@ export const SIGN_UP=gql`
                 }
             }
 `
+export const LOGOUT = gql`
+    mutation user_logout{
+        logout{
+            message
+        }
+    }
+`
 
 
 export const LOGIN=gql`

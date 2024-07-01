@@ -1,38 +1,12 @@
 import User from '../models/user.model.js'
 import bcrypt from 'bcryptjs'
+import Transaction from '../models/transaction.model.js'
 
 const userResolver={
-    Query:{
-        // send single user
-        user:async(_,{userId})=>{
-            try{
-                const singleUser= await  User.findByID(userId)
-                return singleUser
-            }
-            catch(err){
-                console.err("Error in single user: ", err)
-                throw new Error(err.message || "Internal server error")
-            }
-        },
-
-        // Authentication of user
-        authUser: async (_,__,context)=>{
-            console.log("context: ", context)
-            try{
-                const user = await context.getUser()
-                return user
-            }
-            catch(err){
-                console.error("Error in auth: ", err)
-                throw new Error(err.message || "Internal server error")
-            }
-        }
-    },
     // Mutation: CRD
     Mutation:{
         // Signup new user
         signUp: async(_,{input},context)=>{
-            console.log("server: ", input)
             try{
                 const {username, name, password,gender}=input
                 if(!username || !name || !password || !gender){
@@ -74,7 +48,7 @@ const userResolver={
                 if(!username || !password){
                     throw new Error("All input fields required")
                 }
-                const {user}=await context.authenticate('graphql-local',{username, password})
+                const { user } = await context.authenticate("graphql-local", { username, password });
                 await context.login(user)
                 return user
             } catch (error) {
@@ -86,17 +60,58 @@ const userResolver={
         logout:async(_,__,context)=>{
             try {
                 await context.logout()
-                req.session.destroy((err)=> {
+                context.req.session.destroy((err)=> {
                     if(err) throw err
                 })
-                res.clearCookies("connection.id")
+                context.res.clearCookies("connect.sid")
                 return {message:"logged out successfully"}
             } catch (error) {
                 console.log("Error in logout: ", err)                
                 throw new Error(error.message || "Internal server error")
             }
         }
-    }
+    },
+
+    Query:{
+        // send single user
+        user:async(_,{userId})=>{
+            try{
+                const singleUser= await  User.findById(userId)
+                return singleUser
+            }
+            catch(err){
+                console.error("Error in single user: ", err)
+                throw new Error(err.message || "Internal server error")
+            }
+        },
+
+        // Authentication of user
+        authUser: async (_,__,context)=>{
+            // console.log("req. user: ", req.isAuthenticated())
+            try{
+                console.log("context user fetching")
+                const user = await context.getUser()
+                // let user = await req.user
+                console.log("auth user getUser: ", user)
+                return user
+            }
+            catch(err){
+                console.error("Error in auth: ", err)
+                throw new Error(err.message || "Internal server error")
+            }
+        }
+    },
+    User: {
+		transactions: async (parent) => {
+			try {
+				const transactions = await Transaction.find({ userId: parent._id });
+				return transactions;
+			} catch (err) {
+				console.log("Error in user.transactions resolver: ", err);
+				throw new Error(err.message || "Internal server error");
+			}
+		},
+	},
 }
 
 export default userResolver;

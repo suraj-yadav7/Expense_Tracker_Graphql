@@ -48,7 +48,9 @@ app.use(
         saveUninitialized:false,
         cookie:{
             maxAge:1000*60*60*24*3,
-            httpOnly:true
+            httpOnly:true,
+            sameSite: 'none',
+            
         },
         store:store
     })
@@ -82,6 +84,6 @@ await new Promise((resolve)=> {
 await connectDB();
 
 }
-startServer().catch((err)=> console.log(`Error in starting the server: ${err}`.bgRed.yellow))
+startServer().catch((err)=> console.log(`Error in starting the server: ${err}`.bgRed.yellow));
 
 

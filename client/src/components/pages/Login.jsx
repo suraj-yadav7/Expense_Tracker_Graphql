@@ -14,17 +14,19 @@ const Login = ()=>{
 
     const verifyUser = async()=>{
         try{
-            let response = await loginUser({
+            let {data} = await loginUser({
                 variables:{
                     loginInputData:loginData
                 }
             })
-            if(response){
-                toast.success("User Found")
-                setLoginData({username:"", password:""})
-                navigate("/")
-                console.log("unable to navigate")
-            }
+            console.log("loginresponse: ", data )
+            navigate("/")
+            // if(response){
+            //     toast.success("User Found")
+            //     setLoginData({username:"", password:""})
+            //     navigate("/")
+            //     console.log("unable to navigate")
+            // }
 
         }
         catch(error){
