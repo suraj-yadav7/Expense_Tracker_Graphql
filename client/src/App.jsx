@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState,useEffect } from 'react'
 import {BrowserRouter as Router, Routes, Route, Navigate} from 'react-router-dom'
 import './App.css'
 import Signup from './components/pages/Signup'
@@ -13,23 +13,19 @@ import { GET_USER_AUTHENTICATION } from './graphql/queries/user.query'
 
 function App() {
 // useQuery automatically call inside function when component is mounted
-  const {loading, data, error}=useQuery(GET_USER_AUTHENTICATION,
-    {
-      fetchPolicy: 'network-only',  // Ensure fresh data is fetched
-  }
-  )
+  const {loading, data, error}=useQuery(GET_USER_AUTHENTICATION  )
 
+  if(loading) return <div><h3 className='bg-yellow-300 text-white'>User is loading</h3></div>  
 
-  if(loading) return <h3>User is loading</h3>
+  
   return (
     <>
-    
     <Router>
       <Routes>
-        <Route exact path="/" element={data.authUser? <Home/> : <Navigate to='/signup'/>}/>
+        <Route exact path="/"  element={data?.authUser ? <Home/> : <Navigate to='/login'/>} />
         <Route exact path="/signup" element={!data?.authUser? <Signup/>: <Navigate to='/'/>} />
-        <Route exact path='/login' element={!data?.authUser? <Login/>:<Navigate to='/' />} />
-        <Route exact path="/transaction/:id" element={data?.authUser? <Transaction/> :<Navigate to="/" />} />
+        <Route exact path="/login" element={!data?.authUser? <Login/>:<Navigate to='/' />} />
+        <Route exact path="/transaction/:id" element={data?.authUser? <Transaction/> :<Navigate to='/' />} />
         <Route exact path='*' element={<NotFound/>} />
       </Routes>
       <Toaster/>

@@ -3,7 +3,7 @@ import bcrypt from 'bcryptjs'
 import Transaction from '../models/transaction.model.js'
 
 const userResolver={
-    // Mutation: CRD
+    // Mutation: CUD
     Mutation:{
         // Signup new user
         signUp: async(_,{input},context)=>{
@@ -63,7 +63,8 @@ const userResolver={
                 context.req.session.destroy((err)=> {
                     if(err) throw err
                 })
-                context.res.clearCookies("connect.sid")
+                context.res.clearCookie("connect.sid")
+                console.log("logout resolver runned")
                 return {message:"logged out successfully"}
             } catch (error) {
                 console.log("Error in logout: ", err)                

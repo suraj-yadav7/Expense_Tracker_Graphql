@@ -13,16 +13,18 @@ const [signupData, setSignupData] = useState({
   gender:''
 })
 
-const [SignUp,{loading,error}] = useMutation(SIGN_UP)
+const [SignUp,{loading,error}] = useMutation(SIGN_UP,{
+  refetchQueries:["userAuthentication"]
+})
 const navigate = useNavigate()
   const handleChange =(e)=>{
     const {name, value}=e.target
     setSignupData({...signupData, [name]:value})
 
   }
-  console.log("sigup loading: ", loading)
   const handleSubmit =async(e)=>{
     e.preventDefault()
+    const requiredField=["name","username", "password","gender"];
     try{
       let response =await SignUp({
         variables:{
@@ -34,8 +36,8 @@ const navigate = useNavigate()
         setSignupData({username:'', name:'', password:'', gender:''})
       }
       setTimeout(()=>{
-        navigate("/login")
-      },2000)
+        navigate("/")
+      },1500)
     }
     catch(error){
       console.log("Client side error at auth: ",error)

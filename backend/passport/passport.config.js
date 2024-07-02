@@ -41,4 +41,4 @@ export const configurePassport = async()=>{
             }
         })
     )
-}
+};

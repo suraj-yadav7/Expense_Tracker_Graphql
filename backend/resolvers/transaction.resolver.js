@@ -28,7 +28,7 @@ const transactionResolver = {
         }
     },
     Mutation:{
-        createTransaction:async(_,{input})=>{
+        createTransaction:async(_,{input},context)=>{
             try {
                 const {description,paymentType,category,amount,date, location} = input
                 if(!description || !paymentType || !category || !amount ||!date){
@@ -48,7 +48,7 @@ const transactionResolver = {
                 return creatTrans
             } catch (error) {
                 console.error("Error in creating user transactins")
-                throw new Error(err.message || 'Internal server error')
+                throw new Error(error.message || 'Internal server error')
             }
         },
 

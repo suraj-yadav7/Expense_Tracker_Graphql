@@ -8,26 +8,26 @@ import toast from "react-hot-toast";
 const Login = ()=>{
     const [loginData, setLoginData] = useState({username:'', password:''})
 
-    const [loginUser, {loading, error}]=useMutation(LOGIN)
-
+    const [loginUser, {loading, error}]=useMutation(LOGIN,{
+        refetchQueries:["userAuthentication"]
+      })
     const navigate = useNavigate()
 
     const verifyUser = async()=>{
+        if(!loginData.username || !loginData.password) return toast.error("All fields required")
         try{
             let {data} = await loginUser({
                 variables:{
                     loginInputData:loginData
                 }
             })
-            console.log("loginresponse: ", data )
-            navigate("/")
-            // if(response){
-            //     toast.success("User Found")
-            //     setLoginData({username:"", password:""})
-            //     navigate("/")
-            //     console.log("unable to navigate")
-            // }
-
+            if(data.login){
+                toast.success("User Found")
+                setLoginData({username:"", password:""})
+                setTimeout(()=>{
+                    navigate("/")
+                },1500)
+            }
         }
         catch(error){
             console.log("client side error at login user: ", error)
