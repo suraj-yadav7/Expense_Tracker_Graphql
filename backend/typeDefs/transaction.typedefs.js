@@ -14,7 +14,7 @@ type Transaction{
 
 type Query{
     transactions:[Transaction!]
-    singleTransaction(transaction:ID!):Transaction
+    singleTransaction(transactionId:ID!):Transaction
 }
 
 type Mutation{
@@ -33,6 +33,7 @@ input createInputTransaction{
 }
 
 input updateInputTransaction{
+    _id:String
     description:String
     paymentType:String
     category:String

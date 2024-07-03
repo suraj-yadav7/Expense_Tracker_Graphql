@@ -21,8 +21,8 @@ export const UPDATE_TRANSACTION=gql`
 `
 
 export const DELETE_TRANSACTION=gql`
-    mutation transactionDelete($inputDeleteTrans:ID!){
-        deleteTransaction(transactionId:$inputDeleteTrans){
+    mutation transactionDelete($inputDeleteTransID:ID!){
+        deleteTransaction(transactionId:$inputDeleteTransID){
             _id
             description
         }

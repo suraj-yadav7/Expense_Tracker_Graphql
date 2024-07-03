@@ -14,6 +14,7 @@ const transactionResolver = {
             }
         },
         singleTransaction: async(_,{transactionId})=>{
+            console.log("trnas id: ", transactionId)
             try{
                 let singleTrans = await Transaction.findById(transactionId)
                 if(!singleTrans){
@@ -53,9 +54,9 @@ const transactionResolver = {
         },
 
         updateTransaction:async(_,{input})=>{
-            const {transactionId} = input
+            const {_id} = input
             try {
-                let updateTrans = await Transaction.findByIdAndUpdate(transactionId, input)
+                let updateTrans = await Transaction.findByIdAndUpdate(_id, input)
                 return updateTrans
             } catch (error) {
                 console.error("Error in updating user transactins")

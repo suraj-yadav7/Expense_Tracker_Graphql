@@ -1,14 +1,26 @@
-import React, { useState } from 'react'
+import { useMutation, useQuery } from '@apollo/client';
+import React, { useEffect, useState } from 'react'
+import { useParams } from 'react-router-dom';
+import { GET_SINGLE_TRANSACTION } from '../../graphql/queries/transaction.query';
+import { UPDATE_TRANSACTION } from '../../graphql/mutations/transaction.mutation';
+import toast from 'react-hot-toast';
 
 const Transaction = () => {
+	const {id}=useParams()
+	const {data, loading} = useQuery(GET_SINGLE_TRANSACTION,{
+		variables:{
+			transactionID:id
+		}
+	  })
   const [formData, setFormData] = useState({
-    description:'',
-    paymentType:'',
-    category:'',
-    amount:'',
-    location:'',
-    date:''
+    	description:data?.singleTransaction?.description || "",
+		paymentType:data?.singleTransaction?.paymentType || "",
+		category:data?.singleTransaction?.category || "",
+		amount:data?.singleTransaction?.amount || "",
+		location:data?.singleTransaction?.location || "",
+		date:data?.singleTransaction?.date || "",
   })
+  const [updateTrans]=useMutation(UPDATE_TRANSACTION)
   const handleInputChange = (e)=>{
     const {name, value} = e.target
     setFormData((prev)=>({
@@ -16,10 +28,41 @@ const Transaction = () => {
     }))
   }
 
-  const handleSubmit=(e)=>{
+  const handleSubmit=async(e)=>{
     e.preventDefault()
+	let amount = parseFloat(formData.amount)
+	try{
+		let response =await updateTrans({
+			variables:{
+				inputUpdateTrans:{
+					...formData,
+					_id:id,
+					amount
+				}
+			}
+		})
+		if(response.data){
+			toast.success("transaction is updated")
+
+		}
+	}
+	catch(error){
+		console.log("Error occured at updating transaction details: ", error)
+	}
   };
-  console.log("trans: ", formData)
+
+  useEffect(()=>{
+	if(data){
+		setFormData({
+			description:data.singleTransaction.description,
+			paymentType:data.singleTransaction.paymentType,
+			category:data.singleTransaction.category,
+			amount:data.singleTransaction.amount,
+			location:data.singleTransaction.location,
+			date:data.singleTransaction.date,
+		})
+	}
+  },[data])
   return (
     <>
         <div className='p-4 max-w-4xl mx-auto flex flex-col items-center border border-red-300 rounded-lg'>
@@ -42,7 +85,7 @@ const Transaction = () => {
 							name='description'
 							type='text'
 							placeholder='Rent, Groceries, Salary, etc.'
-							value={formData.description}
+							value={formData.description }
 							onChange={handleInputChange}
 						/>
 					</div>
@@ -62,7 +105,8 @@ const Transaction = () => {
 								id='paymentType'
 								name='paymentType'
 								onChange={handleInputChange}
-								defaultValue={formData.paymentType}
+								value={formData.paymentType}
+								defaultValue="card"
 							>
 								<option value={"card"}>Card</option>
 								<option value={"cash"}>Cash</option>
@@ -93,7 +137,8 @@ const Transaction = () => {
 								id='category'
 								name='category'
 								onChange={handleInputChange}
-								defaultValue={formData.category}
+								value={formData.category}
+								defaultValue="saving"
 							>
 								<option value={"saving"}>Saving</option>
 								<option value={"expense"}>Expense</option>

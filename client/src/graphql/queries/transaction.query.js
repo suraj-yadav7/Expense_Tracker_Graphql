@@ -14,3 +14,18 @@ export const GET_TRANSACTION = gql`
         }
     }
 `
+
+export const GET_SINGLE_TRANSACTION=gql`
+    query getSingleTransaction($transactionID:ID!){
+        singleTransaction(transactionId:$transactionID){
+            _id
+            userID
+            description
+            paymentType
+            category
+            amount
+            location
+            date
+        }
+    }
+`
