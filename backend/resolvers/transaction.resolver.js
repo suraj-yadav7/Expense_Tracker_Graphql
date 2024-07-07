@@ -14,7 +14,6 @@ const transactionResolver = {
             }
         },
         singleTransaction: async(_,{transactionId})=>{
-            console.log("trnas id: ", transactionId)
             try{
                 let singleTrans = await Transaction.findById(transactionId)
                 if(!singleTrans){
@@ -25,6 +24,29 @@ const transactionResolver = {
             catch(err){
                 console.error("Error in getting single user transactins")
                 throw new Error(err.message || 'Internal server error')
+            }
+        },
+        categoryTransaction:async(_,__,context)=>{
+            try{
+                if(!context.getUser()) throw new Error("Unauthorized")
+                let userID=await context.getUser()._id
+                // userID must same as mongoose schema id name
+                let transactions=await Transaction.find({userID})
+                let categoryMap={}
+                transactions.forEach((trans)=>{
+                    if(!categoryMap[trans.category]){
+                        categoryMap[trans.category]=0
+                    }
+                    categoryMap[trans.category] +=trans.amount
+                    
+                })
+                console.log("category map: ", categoryMap)
+                let category= Object.entries(categoryMap).map(([category, totalAmount])=> ({category, totalAmount}))
+                return category;
+            }
+            catch(error){
+                console.log("error in category resolver: ", error)
+                throw new Error(error.message || "Internal server error")
             }
         }
     },

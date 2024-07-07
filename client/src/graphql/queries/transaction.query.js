@@ -29,3 +29,12 @@ export const GET_SINGLE_TRANSACTION=gql`
         }
     }
 `
+
+export const GET_TRANSACTION_BY_CATEGORY=gql`
+    query getCategoryTransaction{
+        categoryTransaction{
+            category
+            totalAmount
+        }
+    }
+`

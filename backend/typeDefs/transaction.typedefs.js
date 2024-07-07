@@ -15,6 +15,11 @@ type Transaction{
 type Query{
     transactions:[Transaction!]
     singleTransaction(transactionId:ID!):Transaction
+    categoryTransaction:[CategoryTrans] 
+}
+type CategoryTrans{
+    category:String!
+    totalAmount:Float!
 }
 
 type Mutation{
@@ -22,6 +27,7 @@ type Mutation{
     updateTransaction(input:updateInputTransaction!):Transaction!
     deleteTransaction(transactionId:ID!):Transaction!
 }
+
 
 input createInputTransaction{
     description:String!
@@ -41,6 +47,8 @@ input updateInputTransaction{
     location:String
     date:String
 }
+
+
 
 `
 export default transactionTypeDef;

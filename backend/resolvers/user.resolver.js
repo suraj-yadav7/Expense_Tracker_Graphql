@@ -13,7 +13,6 @@ const userResolver={
                     throw new Error("All input fields are required")
                 }
                 let userExist=await User.findOne({username})
-                console.log("user exist: ", userExist)
                 if(userExist){
                     throw new Error ("User already exist")
                 }
@@ -88,12 +87,8 @@ const userResolver={
 
         // Authentication of user
         authUser: async (_,__,context)=>{
-            // console.log("req. user: ", req.isAuthenticated())
             try{
-                console.log("context user fetching")
                 const user = await context.getUser()
-                // let user = await req.user
-                console.log("auth user getUser: ", user)
                 return user
             }
             catch(err){

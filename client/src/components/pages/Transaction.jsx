@@ -20,7 +20,10 @@ const Transaction = () => {
 		location:data?.singleTransaction?.location || "",
 		date:data?.singleTransaction?.date || "",
   })
-  const [updateTrans]=useMutation(UPDATE_TRANSACTION)
+//   here loading variable is changed to updateLoading
+  const [updateTrans,{loading:updateLoading}]=useMutation(UPDATE_TRANSACTION,{
+	refetchQueries:["getTransaction"]
+  })
   const handleInputChange = (e)=>{
     const {name, value} = e.target
     setFormData((prev)=>({
@@ -59,7 +62,7 @@ const Transaction = () => {
 			category:data.singleTransaction.category,
 			amount:data.singleTransaction.amount,
 			location:data.singleTransaction.location,
-			date:data.singleTransaction.date,
+			date: new Date(+data.singleTransaction.date).toISOString().substr(0, 10)
 		})
 	}
   },[data])

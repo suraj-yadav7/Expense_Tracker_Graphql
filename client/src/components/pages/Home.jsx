@@ -3,16 +3,19 @@ import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 import { MdLogout } from "react-icons/md";
 import TransactionForm from "../TransactionForm";
 import Card from "../Card";
-import { useMutation } from "@apollo/client";
+import { useMutation, useQuery } from "@apollo/client";
 import { LOGOUT } from "../../graphql/mutations/user.mutation";
 import Cards from "../Cards";
+import { GET_TRANSACTION_BY_CATEGORY } from "../../graphql/queries/transaction.query";
 
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
 const HomePage = () => {
+
+	const {data}=useQuery(GET_TRANSACTION_BY_CATEGORY)
 	
-	const [logoutUser, {loading}] =useMutation(LOGOUT,{
+	const [logoutUser, {loading,client}] =useMutation(LOGOUT,{
 		refetchQueries:["userAuthentication"]
 	})
 	const chartData = {
@@ -34,6 +37,7 @@ const HomePage = () => {
 	const handleLogout = async() => {
 		try{
 			await logoutUser()
+			client.resetStore()
 		}
 		catch(error){
 			console.log("Error in logout client: ", error)
@@ -41,7 +45,6 @@ const HomePage = () => {
 	};
 console.log("logout loading:", loading)
 	
-
 	return (
 		<>
 			<div className='flex flex-col gap-6 items-center  mx-auto z-20 relative justify-center'>
