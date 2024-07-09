@@ -26,6 +26,13 @@ export const GET_SINGLE_TRANSACTION=gql`
             amount
             location
             date
+            # relationship query for user details
+            user{
+                _id
+                username
+                gender
+                profilePicture
+            }
         }
     }
 `

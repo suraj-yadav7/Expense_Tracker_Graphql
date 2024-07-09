@@ -1,4 +1,5 @@
 import Transaction from "../models/transaction.model.js";
+import User from "../models/user.model.js";
 
 const transactionResolver = {
     Query:{
@@ -96,6 +97,17 @@ const transactionResolver = {
             }
         }
     },
+    // Relationship Transaction with user
+    Transaction:{
+        user:async(parent)=>{
+            try {
+                let user=await User.findById(parent.userID)
+                return user
+            } catch (error) {
+                console.log("Error in getting relationship user", err);
+            }
+        }
+    }
 };
 
 export default transactionResolver;

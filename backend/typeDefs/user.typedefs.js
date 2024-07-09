@@ -6,6 +6,8 @@ const userTypeDef=`#graphql
         password:String!
         gender:String!
         profilePicture:String!
+        # Below is relationship Technique 
+        # user details & all transaction will get 
         transactions: [Transaction!]
     }
 

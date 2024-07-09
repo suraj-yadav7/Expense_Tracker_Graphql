@@ -9,7 +9,8 @@ type Transaction{
     amount:Float!
     location:String
     date:String!
-    
+    # relationship to get user details
+    user:User!
 }
 
 type Query{
@@ -47,8 +48,6 @@ input updateInputTransaction{
     location:String
     date:String
 }
-
-
 
 `
 export default transactionTypeDef;

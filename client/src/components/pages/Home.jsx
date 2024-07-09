@@ -7,6 +7,9 @@ import { useMutation, useQuery } from "@apollo/client";
 import { LOGOUT } from "../../graphql/mutations/user.mutation";
 import Cards from "../Cards";
 import { GET_TRANSACTION_BY_CATEGORY } from "../../graphql/queries/transaction.query";
+import {GET_USER_AND_TRANSACTION, GET_USER_AUTHENTICATION} from "../../graphql/queries/user.query"
+import { useEffect, useState } from "react";
+
 
 
 ChartJS.register(ArcElement, Tooltip, Legend);
@@ -14,25 +17,25 @@ ChartJS.register(ArcElement, Tooltip, Legend);
 const HomePage = () => {
 
 	const {data}=useQuery(GET_TRANSACTION_BY_CATEGORY)
-	
+	const {data:authData}=useQuery(GET_USER_AUTHENTICATION)
 	const [logoutUser, {loading,client}] =useMutation(LOGOUT,{
 		refetchQueries:["userAuthentication"]
 	})
-	const chartData = {
-		labels: ["Saving", "Expense", "Investment"],
+	const [chartData, setChartData] =useState({
+		labels: [],
 		datasets: [
 			{
 				label: "%",
-				data: [13, 8, 3],
-				backgroundColor: ["rgba(75, 192, 192)", "rgba(255, 99, 132)", "rgba(54, 162, 235)"],
-				borderColor: ["rgba(75, 192, 192)", "rgba(255, 99, 132)", "rgba(54, 162, 235, 1)"],
+				data: [],
+				backgroundColor: [],
+				borderColor: [],
 				borderWidth: 6,
 				borderRadius: 30,
 				spacing: 6,
 				cutout: 124,
 			},
 		],
-	};
+	});
 
 	const handleLogout = async() => {
 		try{
@@ -43,17 +46,51 @@ const HomePage = () => {
 			console.log("Error in logout client: ", error)
 		}
 	};
-console.log("logout loading:", loading)
 	
+	useEffect(()=>{
+		if(data?.categoryTransaction){
+			let categories = data?.categoryTransaction.map((trans)=> trans.category)
+			let totalAmount = data?.categoryTransaction.map((trans)=> trans.totalAmount)
+		let bgColor=[]
+		let brColor=[]
+		categories.forEach((cateElement)=>{
+			if(cateElement==="saving"){
+				bgColor.push("rgba(75, 192, 192)")
+				brColor.push("rgba(75, 192, 192)")
+			}
+			else if(cateElement === "investment"){
+				bgColor.push("rgba(54, 162, 235)")
+				brColor.push("rgba(54, 162, 235)")
+			}
+			else if(cateElement === "expense"){
+				bgColor.push("rgba(255, 99, 132)")
+				brColor.push("rgba(255, 99, 132)")
+			}
+		})
+
+		setChartData((prev)=> ({
+			labels:categories,
+			datasets:[
+				{
+					...prev.datasets[0], 
+					data:totalAmount,
+					backgroundColor:bgColor,
+					borderColor:brColor
+				}
+			]
+		}))
+
+		}
+	},[data])
 	return (
 		<>
-			<div className='flex flex-col gap-6 items-center  mx-auto z-20 relative justify-center'>
+			<div className='flex flex-col gap-6 items-center  mx-auto z-20 relative justify-center pt-4'>
 				<div className='flex items-center'>
 					<p className='md:text-4xl text-2xl lg:text-4xl font-bold text-center relative z-50 mb-4 mr-4 bg-gradient-to-r from-pink-600 via-indigo-500 to-pink-400 inline-block text-transparent bg-clip-text'>
 						Spend wisely, track nicely
 					</p>
 					<img
-						src={"https://tecdn.b-cdn.net/img/new/avatars/2.webp"}
+						src={authData?.authUser.profilePicture}
 						className='w-11 h-11 rounded-full border cursor-pointer'
 						alt='Avatar'
 					/>
@@ -62,12 +99,14 @@ console.log("logout loading:", loading)
 					{loading && <div className='w-6 h-6 border-t-2 border-b-2 mx-2 rounded-full animate-spin'></div>}
 				</div>
 				<div className='flex w-full justify-center items-center gap-6'>
+					{data?.categoryTransaction.length>0?
 					<div className='h-[330px] w-[330px] md:h-[360px] md:w-[360px]  '>
 						<Doughnut data={chartData} />
-					</div>
-					  <TransactionForm/>
+					</div>:null
+					}
+					<TransactionForm/>
 				</div>
-				<Cards/>
+				<Cards profileData={authData?.authUser}/>
 			</div>
 		</>
 	);

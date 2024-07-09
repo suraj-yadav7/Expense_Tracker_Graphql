@@ -1,37 +1,39 @@
 import { useMutation, useQuery } from '@apollo/client';
 import React, { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { GET_SINGLE_TRANSACTION } from '../../graphql/queries/transaction.query';
 import { UPDATE_TRANSACTION } from '../../graphql/mutations/transaction.mutation';
 import toast from 'react-hot-toast';
 
 const Transaction = () => {
 	const {id}=useParams()
+	const navigate=useNavigate()
 	const {data, loading} = useQuery(GET_SINGLE_TRANSACTION,{
 		variables:{
 			transactionID:id
 		}
-	  })
-  const [formData, setFormData] = useState({
+	})
+	
+const [formData, setFormData] = useState({
     	description:data?.singleTransaction?.description || "",
 		paymentType:data?.singleTransaction?.paymentType || "",
 		category:data?.singleTransaction?.category || "",
 		amount:data?.singleTransaction?.amount || "",
 		location:data?.singleTransaction?.location || "",
 		date:data?.singleTransaction?.date || "",
-  })
-//   here loading variable is changed to updateLoading
-  const [updateTrans,{loading:updateLoading}]=useMutation(UPDATE_TRANSACTION,{
-	refetchQueries:["getTransaction"]
-  })
-  const handleInputChange = (e)=>{
+})
+//   Here loading variable is changed to updateLoading
+const [updateTrans,{loading:updateLoading}]=useMutation(UPDATE_TRANSACTION,{
+	refetchQueries:["getTransaction","getCategoryTransaction"]
+})
+const handleInputChange = (e)=>{
     const {name, value} = e.target
     setFormData((prev)=>({
-      ...prev, [name]:value
+    ...prev, [name]:value
     }))
-  }
+}
 
-  const handleSubmit=async(e)=>{
+const handleSubmit=async(e)=>{
     e.preventDefault()
 	let amount = parseFloat(formData.amount)
 	try{
@@ -68,6 +70,8 @@ const Transaction = () => {
   },[data])
   return (
     <>
+		<div className='h-screen flex flex-col justify-center items-center pb-36'>
+			<span className='relative right-52 font-semibold  bg-red-300 px-8 hover:text-white hover:cursor-pointer ' onClick={()=>navigate("/")}>Back</span>
         <div className='p-4 max-w-4xl mx-auto flex flex-col items-center border border-red-300 rounded-lg'>
 			<p className='md:text-4xl text-2xl lg:text-4xl font-bold text-center relative z-50 mb-4 mr-4 bg-gradient-to-r from-red-600 via-indigo-500 to-yellow-400 inline-block text-transparent bg-clip-text'>
 				Update this transaction
@@ -225,6 +229,7 @@ const Transaction = () => {
 					Update Transaction
 				</button>
 			</form>
+		</div>
 		</div>
         </>
   )

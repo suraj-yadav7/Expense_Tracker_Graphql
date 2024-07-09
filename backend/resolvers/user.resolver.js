@@ -97,10 +97,11 @@ const userResolver={
             }
         }
     },
+    // Relationship user and transactions
     User: {
 		transactions: async (parent) => {
 			try {
-				const transactions = await Transaction.find({ userId: parent._id });
+				const transactions = await Transaction.find({ userID: parent._id });
 				return transactions;
 			} catch (err) {
 				console.log("Error in user.transactions resolver: ", err);
@@ -108,6 +109,8 @@ const userResolver={
 			}
 		},
 	},
+
+    
 }
 
 export default userResolver;

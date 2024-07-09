@@ -16,12 +16,12 @@ const categoryColorMap = {
 	investment: "from-blue-600 to-blue-400",
 };
 
-const Card = ({ transDetails }) => {
+const Card = ({ transDetails,profilePic }) => {
 	const {description,category,amount,date,location,paymentType,_id} = transDetails
 	const cardClass = categoryColorMap[category];
 	const navigate = useNavigate()
 	const [deleteTrans, {loading}] = useMutation(DELETE_TRANSACTION,{
-		refetchQueries:["getTransaction"]
+		refetchQueries:["getTransaction","getCategoryTransaction"]
 	})
 	const handleDelete=async()=>{
 		try{
@@ -72,7 +72,7 @@ const Card = ({ transDetails }) => {
 				<div className='flex justify-between items-center'>
 					<p className='text-xs text-black font-bold'>{dateformat(date)}</p>
 					<img
-						src={"https://tecdn.b-cdn.net/img/new/avatars/5.webp"}
+						src={profilePic? profilePic.profilePicture:"https://tecdn.b-cdn.net/img/new/avatars/5.webp"}
 						className='h-8 w-8 border rounded-full'
 						alt=''
 					/>
