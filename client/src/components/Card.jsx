@@ -40,10 +40,10 @@ const Card = ({ transDetails,profilePic }) => {
 		}
 
 	return (
-		<div key={transDetails._id} className={`rounded-md p-4 bg-gradient-to-br ${cardClass}`}>
+		<div key={transDetails._id} className={`rounded-md p-5 bg-gradient-to-br ${cardClass}`}>
 			<div className='flex flex-col gap-3'>
 				<div className='flex flex-row items-center justify-between'>
-					<h2 className='text-lg font-bold text-white'>{category}</h2>
+					<h2 className='text-xl font-semibold text-white capitalize '>{category}</h2>
 					<div className='flex items-center gap-2'>
 						{!loading &&
 							<FaTrash onClick={handleDelete} className={"cursor-pointer"} />
@@ -53,24 +53,24 @@ const Card = ({ transDetails,profilePic }) => {
 						
 					</div>
 				</div>
-				<p className='text-white flex items-center gap-1'>
+				<p className='text-white text-lg flex items-center gap-1 capitalize'>
 					<BsCardText />
-					Description: {description}
+					Description: {description.slice(0,18)}
 				</p>
-				<p className='text-white flex items-center gap-1'>
+				<p className='text-white text-lg flex  items-center gap-1 capitalize'>
 					<MdOutlinePayments />
 					Payment Type: {paymentType}
 				</p>
-				<p className='text-white flex items-center gap-1'>
+				<p className='text-white text-lg flex  items-center gap-1'>
 					<FaSackDollar />
 					Amount: Rs.{amount} /-
 				</p>
-				<p className='text-white flex items-center gap-1'>
+				<p className='text-white text-lg flex items-center gap-1 capitalize'>
 					<FaLocationDot />
 					Location: {location}
 				</p>
 				<div className='flex justify-between items-center'>
-					<p className='text-xs text-black font-bold'>{dateformat(date)}</p>
+					<p className='text-sm text-black font-bold'>{dateformat(date)}</p>
 					<img
 						src={profilePic? profilePic.profilePicture:"https://tecdn.b-cdn.net/img/new/avatars/5.webp"}
 						className='h-8 w-8 border rounded-full'

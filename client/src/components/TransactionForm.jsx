@@ -37,10 +37,10 @@ const TransactionForm = () => {
 	return (
 		<form className='w-full max-w-lg flex flex-col gap-5 px-3' onSubmit={handleSubmit}>
 			{/* TRANSACTION */}
-			<div className='flex flex-wrap'>
-				<div className='w-full pb-3'>
+			<div className='flex flex-wrap pb-2'>
+				<div className='w-full'>
 					<label
-						className='block uppercase tracking-wide text-xl font-bold mb-2'
+						className='block tracking-wide text-xl font-bold pb-1'
 						htmlFor='description'
 					>
 						New Transaction
@@ -59,7 +59,7 @@ const TransactionForm = () => {
 			<div className='flex flex-wrap gap-3'>
 				<div className='w-full flex-1 mb-6 md:mb-0'>
 					<label
-						className='block uppercase tracking-wide text-white text-xs font-bold mb-2'
+						className='block uppercase tracking-wide  text-xs font-bold mb-2'
 						htmlFor='paymentType'
 					>
 						Payment Type
@@ -88,7 +88,7 @@ const TransactionForm = () => {
 				{/* CATEGORY */}
 				<div className='w-full flex-1 mb-6 md:mb-0'>
 					<label
-						className='block uppercase tracking-wide text-white text-xs font-bold mb-2'
+						className='block uppercase tracking-wide  text-xs font-bold mb-2'
 						htmlFor='category'
 					>
 						Category
@@ -117,8 +117,8 @@ const TransactionForm = () => {
 
 				{/* AMOUNT */}
 				<div className='w-full flex-1 mb-6 md:mb-0'>
-					<label className='block uppercase text-white text-xs font-bold mb-2' htmlFor='amount'>
-						Amount($)
+					<label className='block uppercase  text-xs font-bold mb-2' htmlFor='amount'>
+						Amount(₹)
 					</label>
 					<input
 						className='appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500'
@@ -131,10 +131,10 @@ const TransactionForm = () => {
 			</div>
 
 			{/* LOCATION */}
-			<div className='flex flex-wrap gap-3'>
+			<div className='flex flex-wrap gap-3 mt-1'>
 				<div className='w-full flex-1 mb-6 md:mb-0'>
 					<label
-						className='block uppercase tracking-wide text-white text-xs font-bold mb-2'
+						className='block uppercase tracking-wide  text-xs font-bold mb-1'
 						htmlFor='location'
 					>
 						Location
@@ -150,7 +150,7 @@ const TransactionForm = () => {
 
 				{/* DATE */}
 				<div className='w-full flex-1'>
-					<label className='block uppercase tracking-wide text-white text-xs font-bold mb-2' htmlFor='date'>
+					<label className='block uppercase tracking-wide  text-xs font-bold mb-1' htmlFor='date'>
 						Date
 					</label>
 					<input
@@ -165,7 +165,7 @@ const TransactionForm = () => {
 			</div>
 			{/* SUBMIT BUTTON */}
 			<button
-				className='text-white font-bold w-full rounded px-4 py-2 bg-gradient-to-br from-blue-500 to-pink-500 hover:from-pink-600 hover:to-pink-600
+				className='text-white uppercase font-bold w-full rounded px-4 py-2 bg-gradient-to-br from-blue-500 to-pink-500 hover:from-pink-600 hover:to-pink-600
 						disabled:opacity-70 disabled:cursor-not-allowed'
 				type='submit'
 			>

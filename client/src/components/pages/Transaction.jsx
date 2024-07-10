@@ -1,6 +1,6 @@
 import { useMutation, useQuery } from '@apollo/client';
 import React, { useEffect, useState } from 'react'
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams,Link } from 'react-router-dom';
 import { GET_SINGLE_TRANSACTION } from '../../graphql/queries/transaction.query';
 import { UPDATE_TRANSACTION } from '../../graphql/mutations/transaction.mutation';
 import toast from 'react-hot-toast';
@@ -71,17 +71,27 @@ const handleSubmit=async(e)=>{
   return (
     <>
 		<div className='h-screen flex flex-col justify-center items-center pb-36'>
-			<span className='relative right-52 font-semibold  bg-red-300 px-8 hover:text-white hover:cursor-pointer ' onClick={()=>navigate("/")}>Back</span>
+				<div>
+					<Link to="/">
+					<h3 className="md:text-4xl text-2xl lg:text-5xl font-bold text-center relative z-50  bg-gradient-to-r from-pink-600 via-indigo-500 to-pink-400 inline-block text-transparent bg-clip-text">Expense Tracker</h3>
+					</Link>
+				</div>
+				<div className='flex items-center mb-8 '>
+					<p className='text-2xl font-bold mr-4'>
+						Spend wisely, Track nicely
+					</p>
+				</div>
+			<span className='relative right-52 font-semibold  bg-pink-400 px-8 hover:text-white hover:cursor-pointer ' onClick={()=>navigate("/")}>Back</span>
         <div className='p-4 max-w-4xl mx-auto flex flex-col items-center border border-red-300 rounded-lg'>
-			<p className='md:text-4xl text-2xl lg:text-4xl font-bold text-center relative z-50 mb-4 mr-4 bg-gradient-to-r from-red-600 via-indigo-500 to-yellow-400 inline-block text-transparent bg-clip-text'>
-				Update this transaction
+			<p className='md:text-4xl text-2xl lg:text-3xl font-bold text-center relative z-50  mr-4 bg-gradient-to-r from-red-400 via-pink-400 to-yellow-500 inline-block text-transparent bg-clip-text'>
+				Update This Transaction
 			</p>
 			<form className='w-full max-w-lg flex flex-col gap-5 px-3 ' onSubmit={handleSubmit}>
 				{/* TRANSACTION */}
-				<div className='flex flex-wrap'>
+				<div className='flex flex-wrap mt-5'>
 					<div className='w-full'>
 						<label
-							className='block uppercase tracking-wide text-white text-xs font-bold mb-2'
+							className='block uppercase tracking-wide  text-xs font-bold mb-1'
 							htmlFor='description'
 						>
 							Transaction
@@ -98,10 +108,10 @@ const handleSubmit=async(e)=>{
 					</div>
 				</div>
 				{/* PAYMENT TYPE */}
-				<div className='flex flex-wrap gap-3'>
+				<div className='flex flex-wrap gap-3 pt-3'>
 					<div className='w-full flex-1 mb-6 md:mb-0'>
 						<label
-							className='block uppercase tracking-wide text-white text-xs font-bold mb-2'
+							className='block uppercase tracking-wide  text-xs font-bold mb-1'
 							htmlFor='paymentType'
 						>
 							Payment Type
@@ -133,7 +143,7 @@ const handleSubmit=async(e)=>{
 					{/* CATEGORY */}
 					<div className='w-full flex-1 mb-6 md:mb-0'>
 						<label
-							className='block uppercase tracking-wide text-white text-xs font-bold mb-2'
+							className='block uppercase tracking-wide text-xs font-bold mb-1'
 							htmlFor='category'
 						>
 							Category
@@ -165,8 +175,8 @@ const handleSubmit=async(e)=>{
 
 					{/* AMOUNT */}
 					<div className='w-full flex-1 mb-6 md:mb-0'>
-						<label className='block uppercase text-white text-xs font-bold mb-2' htmlFor='amount'>
-							Amount($)
+						<label className='block uppercase  text-xs font-bold mb-1' htmlFor='amount'>
+							Amount(₹)
 						</label>
 						<input
 							className='appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500'
@@ -181,10 +191,10 @@ const handleSubmit=async(e)=>{
 				</div>
 
 				{/* LOCATION */}
-				<div className='flex flex-wrap gap-3'>
+				<div className='flex flex-wrap gap-3 pt-3'>
 					<div className='w-full flex-1 mb-6 md:mb-0'>
 						<label
-							className='block uppercase tracking-wide text-white text-xs font-bold mb-2'
+							className='block uppercase tracking-wide  text-xs font-bold mb-1'
 							htmlFor='location'
 						>
 							Location
@@ -203,7 +213,7 @@ const handleSubmit=async(e)=>{
 					{/* DATE */}
 					<div className='w-full flex-1'>
 						<label
-							className='block uppercase tracking-wide text-white text-xs font-bold mb-2'
+							className='block uppercase tracking-wide  text-xs font-bold mb-1'
 							htmlFor='date'
 						>
 							Date
@@ -213,7 +223,7 @@ const handleSubmit=async(e)=>{
 							name='date'
 							id='date'
 							className='appearance-none block w-full bg-gray-200 text-gray-700 border  rounded py-[11px] px-4 mb-3 leading-tight focus:outline-none
-						 focus:bg-white'
+						focus:bg-white'
 							placeholder='Select date'
 							value={formData.date}
 							onChange={handleInputChange}
@@ -222,7 +232,7 @@ const handleSubmit=async(e)=>{
 				</div>
 				{/* SUBMIT BUTTON */}
 				<button
-					className='text-white font-bold w-full rounded px-4 py-2 bg-gradient-to-br
+					className='text-white text-lg font-bold w-full rounded px-4 py-2 bg-gradient-to-br
           from-pink-500 to-pink-500 hover:from-pink-600 hover:to-pink-600'
 					type='submit'
 				>

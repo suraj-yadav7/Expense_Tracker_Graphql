@@ -6,7 +6,7 @@ import GridBackground  from './components/GridBackground.jsx'
 import { ApolloClient, InMemoryCache, ApolloProvider, HttpLink} from '@apollo/client';
 const client = new ApolloClient({
   link:new HttpLink({
-  uri: 'http://localhost:5000/graphql',
+  uri: import.meta.env.VITE_BASE_URL,
   credentials:'include'
   }),
   cache: new InMemoryCache(),

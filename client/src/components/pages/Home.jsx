@@ -9,6 +9,7 @@ import Cards from "../Cards";
 import { GET_TRANSACTION_BY_CATEGORY } from "../../graphql/queries/transaction.query";
 import {GET_USER_AND_TRANSACTION, GET_USER_AUTHENTICATION} from "../../graphql/queries/user.query"
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
 
 
@@ -85,13 +86,18 @@ const HomePage = () => {
 	return (
 		<>
 			<div className='flex flex-col gap-6 items-center  mx-auto z-20 relative justify-center pt-4'>
+				<div>
+					<Link to="/">
+					<h3 className="md:text-4xl text-2xl lg:text-5xl font-bold text-center relative z-50  bg-gradient-to-r from-pink-600 via-indigo-500 to-pink-400 inline-block text-transparent bg-clip-text">Expense Tracker</h3>
+					</Link>
+				</div>
 				<div className='flex items-center'>
-					<p className='md:text-4xl text-2xl lg:text-4xl font-bold text-center relative z-50 mb-4 mr-4 bg-gradient-to-r from-pink-600 via-indigo-500 to-pink-400 inline-block text-transparent bg-clip-text'>
-						Spend wisely, track nicely
+					<p className='text-2xl font-bold mr-4'>
+						Spend wisely, Track nicely
 					</p>
 					<img
 						src={authData?.authUser.profilePicture}
-						className='w-11 h-11 rounded-full border cursor-pointer'
+						className='w-11 h-11 rounded-full border cursor-pointer mr-2'
 						alt='Avatar'
 					/>
 					{!loading && <MdLogout className='mx-2 w-5 h-5 cursor-pointer' onClick={handleLogout} />}
