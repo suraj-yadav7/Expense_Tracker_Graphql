@@ -1,4 +1,4 @@
-import { useMutation, useQuery } from "@apollo/client";
+import { useMutation } from "@apollo/client";
 import React from "react";
 import { CREATE_TRANSACTION } from "../graphql/mutations/transaction.mutation";
 import toast from "react-hot-toast";
@@ -40,7 +40,7 @@ const TransactionForm = () => {
 			<div className='flex flex-wrap pb-2'>
 				<div className='w-full'>
 					<label
-						className='block tracking-wide text-xl font-bold pb-1'
+						className='block tracking-wide text-xl font-bold pb-1 phone:text-lg'
 						htmlFor='description'
 					>
 						New Transaction
@@ -57,12 +57,12 @@ const TransactionForm = () => {
 			</div>
 			{/* PAYMENT TYPE */}
 			<div className='flex flex-wrap gap-3'>
-				<div className='w-full flex-1 mb-6 md:mb-0'>
+				<div className='w-full flex-1 mb-6 md:mb-0 phone:mb-1'>
 					<label
 						className='block uppercase tracking-wide  text-xs font-bold mb-2'
 						htmlFor='paymentType'
 					>
-						Payment Type
+						Payment
 					</label>
 					<div className='relative'>
 						<select
@@ -86,7 +86,7 @@ const TransactionForm = () => {
 				</div>
 
 				{/* CATEGORY */}
-				<div className='w-full flex-1 mb-6 md:mb-0'>
+				<div className='w-full flex-1 mb-6 md:mb-0 phone:mb-1'>
 					<label
 						className='block uppercase tracking-wide  text-xs font-bold mb-2'
 						htmlFor='category'
@@ -116,7 +116,7 @@ const TransactionForm = () => {
 				</div>
 
 				{/* AMOUNT */}
-				<div className='w-full flex-1 mb-6 md:mb-0'>
+				<div className='w-full flex-1 mb-6 md:mb-0 phone:mb-1'>
 					<label className='block uppercase  text-xs font-bold mb-2' htmlFor='amount'>
 						Amount(₹)
 					</label>
@@ -132,7 +132,7 @@ const TransactionForm = () => {
 
 			{/* LOCATION */}
 			<div className='flex flex-wrap gap-3 mt-1'>
-				<div className='w-full flex-1 mb-6 md:mb-0'>
+				<div className='w-full flex-1 mb-6 md:mb-0 phone:mb-0'>
 					<label
 						className='block uppercase tracking-wide  text-xs font-bold mb-1'
 						htmlFor='location'
@@ -165,7 +165,7 @@ const TransactionForm = () => {
 			</div>
 			{/* SUBMIT BUTTON */}
 			<button
-				className='text-white uppercase font-bold w-full rounded px-4 py-2 bg-gradient-to-br from-blue-500 to-pink-500 hover:from-pink-600 hover:to-pink-600
+				className='text-white uppercase font-bold w-full rounded px-4 py-2 phone:mb-5 bg-gradient-to-br from-blue-500 to-pink-500 hover:from-pink-600 hover:to-pink-600
 						disabled:opacity-70 disabled:cursor-not-allowed'
 				type='submit'
 			>

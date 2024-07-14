@@ -47,10 +47,10 @@ const Login = ()=>{
     return (
         <>
             <div className="h-screen flex justify-center items-center pb-28">
-            <div className=" p-8 bg-white  border border-red-300 rounded-xl">
-                <h3 className="text-xl font-bold text-center p-1 ">User Login</h3>
-                <p className="text-sm mb-2">Welcome back! Login to your account</p>
-                <form onSubmit={handleSubmit}>
+            <div className=" p-8 bg-white  border border-red-300 rounded-xl phone:border-red-500">
+                <h3 className="text-2xl font-bold text-center p-1 phone:text-xl">User Login</h3>
+                <p className=" text-lg phone:text-base">Welcome back! Login to your account</p>
+                <form onSubmit={handleSubmit} className="text-lg phone:text-base">
                     <InputField name="username" className='my-4' label="Username" value={loginData.username}  onChange={handleChange} placeholder="Enter your username"/>
                     <InputField type="password" name="password" className="my-2" label="Password" value={loginData.password} onChange={handleChange} placeholder="Enter your password"/>
                     <button type="submit" className="px-2 py-1 m-1 my-2 text-md bg-slate-600 text-white border rounded-md hover:bg-slate-400">Login</button>

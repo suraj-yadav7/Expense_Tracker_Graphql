@@ -70,18 +70,18 @@ const handleSubmit=async(e)=>{
   },[data])
   return (
     <>
-		<div className='h-screen flex flex-col justify-center items-center pb-36'>
+		<div className='h-screen flex flex-col justify-center items-center pb-20  phone:pb-4 sm:pb-16'>
 				<div>
 					<Link to="/">
-					<h3 className="md:text-4xl text-2xl lg:text-5xl font-bold text-center relative z-50  bg-gradient-to-r from-pink-600 via-indigo-500 to-pink-400 inline-block text-transparent bg-clip-text">Expense Tracker</h3>
+					<h3 className="phone:text-3xl md:text-4xl text-3xl lg:text-5xl font-bold text-center relative z-50  bg-gradient-to-r from-pink-600 via-indigo-500 to-pink-400 inline-block text-transparent bg-clip-text">Expense Tracker</h3>
 					</Link>
 				</div>
 				<div className='flex items-center mb-8 '>
-					<p className='text-2xl font-bold mr-4'>
+					<p className='text-2xl font-bold mr-4 phone:text-xl phone:font-semibold'>
 						Spend wisely, Track nicely
 					</p>
 				</div>
-			<span className='relative right-52 font-semibold  bg-pink-400 px-8 hover:text-white hover:cursor-pointer ' onClick={()=>navigate("/")}>Back</span>
+			<span className='relative right-52 font-semibold  bg-pink-400 px-8 text-lg hover:text-white hover:cursor-pointer phone:right-4 phone:text-base' onClick={()=>navigate("/")}>Back</span>
         <div className='p-4 max-w-4xl mx-auto flex flex-col items-center border border-red-300 rounded-lg'>
 			<p className='md:text-4xl text-2xl lg:text-3xl font-bold text-center relative z-50  mr-4 bg-gradient-to-r from-red-400 via-pink-400 to-yellow-500 inline-block text-transparent bg-clip-text'>
 				Update This Transaction
@@ -111,10 +111,10 @@ const handleSubmit=async(e)=>{
 				<div className='flex flex-wrap gap-3 pt-3'>
 					<div className='w-full flex-1 mb-6 md:mb-0'>
 						<label
-							className='block uppercase tracking-wide  text-xs font-bold mb-1'
+							className='block uppercase tracking-wide  text-xs font-bold mb-1 '
 							htmlFor='paymentType'
 						>
-							Payment Type
+							Payment
 						</label>
 						<div className='relative'>
 							<select
@@ -141,9 +141,9 @@ const handleSubmit=async(e)=>{
 					</div>
 
 					{/* CATEGORY */}
-					<div className='w-full flex-1 mb-6 md:mb-0'>
+					<div className='w-full flex-1 mb-6 md:mb-0 '>
 						<label
-							className='block uppercase tracking-wide text-xs font-bold mb-1'
+							className='block uppercase tracking-wide text-xs font-bold mb-1 '
 							htmlFor='category'
 						>
 							Category
@@ -233,7 +233,7 @@ const handleSubmit=async(e)=>{
 				{/* SUBMIT BUTTON */}
 				<button
 					className='text-white text-lg font-bold w-full rounded px-4 py-2 bg-gradient-to-br
-          from-pink-500 to-pink-500 hover:from-pink-600 hover:to-pink-600'
+          from-pink-500 to-pink-500 hover:from-pink-600 hover:to-pink-600 '
 					type='submit'
 				>
 					Update Transaction

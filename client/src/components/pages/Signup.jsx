@@ -22,7 +22,8 @@ const navigate = useNavigate()
     setSignupData({...signupData, [name]:value})
 
   }
-  const handleSubmit =async(e)=>{
+
+const handleSubmit =async(e)=>{
     e.preventDefault()
     const requiredField=["name","username", "password","gender"];
     try{
@@ -43,17 +44,16 @@ const navigate = useNavigate()
       console.log("Client side error at auth: ",error)
       toast.error(error.message)
     }
-
-  }
+  };
 
 
   return (
     <>
-      <div className="h-screen flex justify-center items-center pb-28">
-      <div className="p-8 w-[20rem] bg-white  border border-red-300 rounded-xl ">
-        <h3 className="text-xl font-bold text-center p-1 ">User Signup</h3>
-        <p className="text-sm mb-2 text-center">Welcome! Create new account</p>
-        <form onSubmit={handleSubmit}>
+      <div className="h-screen flex justify-center items-center pb-16 phone:pb-4">
+      <div className="p-8 w-[26rem] phone:w-[20rem] bg-white  border border-red-300 rounded-xl phone:border-red-500">
+        <h3 className="text-2xl font-bold text-center p-1 phone:text-xl">User Signup</h3>
+        <p className="text-lg mb-2 text-center phone:text-base">Welcome! Create new account</p>
+        <form onSubmit={handleSubmit} className='text-lg phone:text-base'>
             <InputField name="name" className='my-4' label="Full Name" value={signupData.name}  onChange={handleChange} placeholder="Enter your full name"/>
             <InputField name="username" className='my-4' label="Username" value={signupData.username}  onChange={handleChange} placeholder="Enter your username"/>
             <InputField type="password" name="password" className="my-2" label="Password" value={signupData.password} onChange={handleChange} placeholder="Enter your password"/>
@@ -68,7 +68,7 @@ const navigate = useNavigate()
             </div>
             <button type="submit" className="px-2 py-1 m-1 my-2 text-md bg-slate-600 text-white border rounded-md hover:bg-slate-400">Signup</button>
         </form>
-        <p className="text-sm">Already have account? <Link to='/login'> <span className="text-red-400 underline cursor-pointer hover:text-red-300" >Login</span></Link></p>
+        <p className="text-base phone:text-sm">Already have account? <Link to='/login'> <span className="text-red-400 underline cursor-pointer hover:text-red-300" >Login</span></Link></p>
       </div>
       </div>
     </>

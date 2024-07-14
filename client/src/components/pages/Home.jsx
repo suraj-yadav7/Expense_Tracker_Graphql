@@ -22,6 +22,7 @@ const HomePage = () => {
 	const [logoutUser, {loading,client}] =useMutation(LOGOUT,{
 		refetchQueries:["userAuthentication"]
 	})
+
 	const [chartData, setChartData] =useState({
 		labels: [],
 		datasets: [
@@ -82,29 +83,30 @@ const HomePage = () => {
 		}))
 
 		}
-	},[data])
+	},[data]);
+
 	return (
 		<>
-			<div className='flex flex-col gap-6 items-center  mx-auto z-20 relative justify-center pt-4'>
+			<div className='flex flex-col gap-6 items-center  mx-auto z-20 relative justify-center pt-4 phone:gap-2'>
 				<div>
 					<Link to="/">
-					<h3 className="md:text-4xl text-2xl lg:text-5xl font-bold text-center relative z-50  bg-gradient-to-r from-pink-600 via-indigo-500 to-pink-400 inline-block text-transparent bg-clip-text">Expense Tracker</h3>
+					<h3 className="md:text-4xl  lg:text-5xl font-bold text-center relative z-50  bg-gradient-to-r from-pink-600 via-indigo-500 to-pink-400 inline-block text-transparent bg-clip-text phone:text-3xl ">Expense Tracker</h3>
 					</Link>
 				</div>
 				<div className='flex items-center'>
-					<p className='text-2xl font-bold mr-4'>
+					<p className='text-2xl font-bold mr-4 phone:text-xl phone:font-semibold'>
 						Spend wisely, Track nicely
 					</p>
 					<img
 						src={authData?.authUser.profilePicture}
-						className='w-11 h-11 rounded-full border cursor-pointer mr-2'
+						className='w-11 h-11 rounded-full border cursor-pointer mr-2 phone:w-8 phone:h-8'
 						alt='Avatar'
 					/>
 					{!loading && <MdLogout className='mx-2 w-5 h-5 cursor-pointer' onClick={handleLogout} />}
 					{/* loading spinner */}
 					{loading && <div className='w-6 h-6 border-t-2 border-b-2 mx-2 rounded-full animate-spin'></div>}
 				</div>
-				<div className='flex w-full justify-center items-center gap-6'>
+				<div className='flex w-full justify-center items-center gap-6 phone:flex-col'>
 					{data?.categoryTransaction.length>0?
 					<div className='h-[330px] w-[330px] md:h-[360px] md:w-[360px]  '>
 						<Doughnut data={chartData} />

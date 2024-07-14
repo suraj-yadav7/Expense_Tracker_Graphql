@@ -12,6 +12,14 @@ const config = {
   darkMode: "class",
   theme: {
     // rest of the code
+    screens: {
+      'sm':'561px',
+      'md': '768px',
+      'lg': '1024px',
+      'xl': '1280px',
+      '2xl':'1536px',
+      'phone': { 'raw': '(max-width: 560px)' },
+    },
   },
   plugins: [
     addVariablesForColors,

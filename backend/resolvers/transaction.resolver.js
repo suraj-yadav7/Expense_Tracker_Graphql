@@ -41,7 +41,6 @@ const transactionResolver = {
                     categoryMap[trans.category] +=trans.amount
                     
                 })
-                console.log("category map: ", categoryMap)
                 let category= Object.entries(categoryMap).map(([category, totalAmount])=> ({category, totalAmount}))
                 return category;
             }
